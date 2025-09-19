@@ -37,6 +37,11 @@
   color: #fff;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+
 /* Navbar */
 .nav {
   display: flex;

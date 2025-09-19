@@ -24,6 +24,7 @@ const Homepage = () => {
                 <a href="/signUp" className="sign-up-btn">
                   Sign Up
                 </a>
+                
               </div>
             </div>
             <div className="content">
