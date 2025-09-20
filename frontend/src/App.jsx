@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./components/Homepage/Homepage";
-import Signup from "./components/Signup";   // ✅ fixed
+import Signup from "./components/Signup/Signup";   
 import Author from "./components/Author/Author"
 
 const App = () => {
