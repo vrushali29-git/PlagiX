@@ -2,7 +2,12 @@ import React from "react";
 import "./Homepage.css";
 import { Search, Globe, BarChart } from "lucide-react";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
+// Assume you have these placeholder images in your assets folder
+import vrushaliImage from "../../assets/vrushali.jpg";
+import sanikaImage from "../../assets/sanika.jpg";
+import truptiImage from "../../assets/trupti.jpg";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -12,11 +17,11 @@ const Homepage = () => {
     const role = document.getElementById("role").value;
 
     if (role === "author") {
-      navigate("/author");   // ✅ Author Dashboard
+      navigate("/author");
     } else if (role === "reviewer") {
-      navigate("/reviewer"); // ✅ Reviewer Dashboard (future)
+      navigate("/reviewer");
     } else if (role === "admin") {
-      navigate("/admin");    // ✅ Admin Page (future)
+      navigate("/admin");
     }
   };
 
@@ -28,8 +33,8 @@ const Homepage = () => {
             <div className="nav">
               <h1 className="logo">PlagiX</h1>
               <div className="nav-links">
-                <a href="/features" className="features">Features</a>
                 <a href="/about" className="about">About</a>
+                <a href="/services" className="services">Services</a>
                 <a href="/contact" className="contact">Contact</a>
                 <a href="/signUp" className="sign-up-btn">Sign Up</a>
               </div>
@@ -47,7 +52,7 @@ const Homepage = () => {
                   transparency, originality, and trust across every submission. More than a tool—
                   it’s a commitment to authentic knowledge.”
                 </p>
-                <a href="/signup" className="get-started">Get Started</a>
+                <Link to="/signup" className="get-started">Get Started</Link>
               </div>
 
               <div className="right-content">
@@ -79,7 +84,7 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-
+      
       {/* 🔹 Services Section */}
       <section className="our-services">
         <h2 className="service-title">Our Services</h2>
@@ -135,6 +140,43 @@ const Homepage = () => {
         </div>
       </section>
 
+      {/* 🔹 Team Section */}
+      <section className="our-team">
+        <h2 className="team-title">Meet Our Team</h2>
+        <div className="team-cards">
+          <div className="team-member-card">
+            <img src={vrushaliImage} alt="Vrushali" className="team-profile-pic" />
+            <h3>Vrushali</h3>
+            <p className="team-role">UI/UX Designer</p>
+            <div className="team-socials">
+              <a href="https://www.linkedin.com/in/vrushali-gawai01/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+              <a href="#" aria-label="Twitter"><FaTwitter /></a>
+              <a href="https://www.instagram.com/vrushali._01/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
+            </div>
+          </div>
+          <div className="team-member-card">
+            <img src={sanikaImage} alt="Sanika" className="team-profile-pic" />
+            <h3>Sanika</h3>
+            <p className="team-role">Manager</p>
+            <div className="team-socials">
+              <a href="https://www.linkedin.com/in/sanika-deshmukh25/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+              <a href="#" aria-label="Twitter"><FaTwitter /></a>
+              <a href="https://www.instagram.com/softserenity_25/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
+            </div>
+          </div>
+          <div className="team-member-card">
+            <img src={truptiImage} alt="Trupti" className="team-profile-pic" />
+            <h3>Trupti</h3>
+            <p className="team-role">Developer</p>
+            <div className="team-socials">
+              <a href="https://www.linkedin.com/in/truptii/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+              <a href="#" aria-label="Twitter"><FaTwitter /></a>
+              <a href="https://www.instagram.com/its.truptii06/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 🔹 Contact Form */}
       <section className="lets-connect">
         <h2 className="section-title">Let's Connect</h2>
@@ -160,10 +202,10 @@ const Homepage = () => {
           <div className="footer-links">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/services">Services</a></li>
-              <li><a href="/contact">Contact</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/services">Services</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
 
