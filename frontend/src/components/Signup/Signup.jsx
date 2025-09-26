@@ -4,7 +4,7 @@ import "./Signup.css";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [role, setRole] = useState("author"); 
+  const [role, setRole] = useState("student"); 
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [password, setPassword] = useState("");
@@ -77,29 +77,29 @@ const Signup = () => {
         <div className="toggle-buttons">
           <button
             type="button"
-            className={`toggle-btn ${role === "author" ? "active" : ""}`}
-            onClick={() => setRole("author")}
+            className={`toggle-btn ${role === "student" ? "active" : ""}`}
+            onClick={() => setRole("student")}
           >
-            Author
+            Student
           </button>
           <button
             type="button"
-            className={`toggle-btn ${role === "reviewer" ? "active" : ""}`}
-            onClick={() => setRole("reviewer")}
+            className={`toggle-btn ${role === "teacher" ? "active" : ""}`}
+            onClick={() => setRole("teacher")}
           >
-            Reviewer
+            Teacher
           </button>
         </div>
 
         {/* Form */}
         <h2 className="form-title">
-          {role === "author"
-            ? "Create Account as an Author"
-            : "Create Account as a Reviewer"}
+          {role === "student"
+            ? "Create Account as a Student"
+            : "Create Account as a Teacher"}
         </h2>
 
         <form className="signup-form" onSubmit={handleSubmit}>
-          {role === "author" ? (
+          {role === "student" ? (
             <>
               <div className="form-row">
                 <input type="text" placeholder="First Name *" required />
@@ -110,7 +110,7 @@ const Signup = () => {
               <div className="form-row">
                 <input
                   type="text"
-                  placeholder="Username *"
+                  placeholder=" Create Username *"
                   value={username}
                   onChange={handleUsernameChange}
                   required
@@ -167,14 +167,14 @@ const Signup = () => {
           ) : (
             <>
               <div className="form-row">
-                <input type="text" placeholder="Reviewer Name *" required />
+                <input type="text" placeholder="Teacher Name *" required />
                 <input type="text" placeholder="Organization *" required />
               </div>
 
               <div className="form-row">
                 <input
                   type="text"
-                  placeholder="Username *"
+                  placeholder=" Create Username *"
                   value={username}
                   onChange={handleUsernameChange}
                   required

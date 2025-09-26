@@ -16,10 +16,10 @@ const Homepage = () => {
     e.preventDefault();
     const role = document.getElementById("role").value;
 
-    if (role === "author") {
-      navigate("/author");
-    } else if (role === "reviewer") {
-      navigate("/reviewer");
+    if (role === "student") {
+      navigate("/student");
+    } else if (role === "teacher") {
+      navigate("/teacher");
     } else if (role === "admin") {
       navigate("/admin");
     }
@@ -64,8 +64,8 @@ const Homepage = () => {
                     <div className="dropdown">
                       <select id="role" required>
                         <option value="" disabled selected>Select Role</option>
-                        <option value="author">Author</option>
-                        <option value="reviewer">Reviewer</option>
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
                         <option value="admin">Admin</option>
                       </select>
                     </div>
