@@ -1,8 +1,8 @@
 /* Dashboard */
 .student-dashboard {
   font-family: 'Arial', sans-serif;
-  padding: 20px;
   background-color: #f8f9fa;
+  padding: 20px;
 }
 
 /* Navbar */
@@ -32,6 +32,55 @@
 }
 .nav-right .settings {
   cursor: pointer;
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+  display: flex;
+  margin-top: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  height: calc(100vh - 100px);
+}
+
+.sidebar h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #0f3e58;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.sidebar ul li.active,
+.sidebar ul li:hover {
+  background: #00b4d8;
+  color: #fff;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 0 20px;
 }
 
 /* Stats */
