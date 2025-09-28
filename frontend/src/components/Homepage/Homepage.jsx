@@ -3,6 +3,7 @@ import "./Homepage.css";
 import { Search, Globe, BarChart } from "lucide-react";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios"; 
 
 // Assume you have these placeholder images in your assets folder
 import vrushaliImage from "../../assets/vrushali.jpg";
@@ -12,18 +13,37 @@ import truptiImage from "../../assets/trupti.jpg";
 const Homepage = () => {
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const role = document.getElementById("role").value;
+ const handleLogin = async (e) => {
+  e.preventDefault();
 
-    if (role === "student") {
-      navigate("/student");
-    } else if (role === "teacher") {
-      navigate("/teacher");
-    } else if (role === "admin") {
-      navigate("/admin");
-    }
-  };
+  const username = document.querySelector('input[placeholder="Username"]').value;
+  const password = document.querySelector('input[placeholder="Password"]').value;
+  const role = document.getElementById("role").value;
+
+  try {
+    const response = await axios.post("http://localhost:5000/api/auth/login", {
+      username,
+      password,
+      role,
+    });
+
+    alert(response.data.message);
+
+    const userRole = response.data.user.role;
+
+if (userRole === "student") {
+  navigate("/student");
+} else if (userRole === "teacher") {
+  navigate("/teacher");
+} else if (userRole === "admin") {
+  navigate("/admin");
+}
+
+
+  } catch (err) {
+    alert(err.response?.data?.error || "Login failed. Please try again.");
+  }
+};
 
   return (
     <>
@@ -64,7 +84,7 @@ const Homepage = () => {
                     <div className="dropdown">
                       <select id="role" required>
                         <option value="" disabled selected>Select Role</option>
-                        <option value="student">Student</option>
+                        <option value="student">Studet</option>
                         <option value="teacher">Teacher</option>
                         <option value="admin">Admin</option>
                       </select>
