@@ -4,12 +4,18 @@ import "./Signup.css";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [role, setRole] = useState("student"); 
+  const [role, setRole] = useState("student");
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [teacherName, setTeacherName] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   // Username validation
   const handleUsernameChange = (e) => {
@@ -54,33 +60,48 @@ const Signup = () => {
     return;
   }
 
-  try {
-    const response = await fetch(
-      role === "student"
-        ? "http://localhost:5000/api/register/student"
-        : "http://localhost:5000/api/register/teacher",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+  const url = role === "student"
+    ? "http://localhost:5000/api/register/student"
+    : "http://localhost:5000/api/register/teacher";
+
+  const body =
+    role === "student"
+      ? {
+          firstName: document.querySelector("input[placeholder='First Name *']").value,
+          lastName: document.querySelector("input[placeholder='Last Name *']").value,
           username,
           password,
-          email: "test@gmail.com", // replace with actual state
-          phone: "1234567890", // replace with actual state
-        }),
-      }
-    );
+          email: document.querySelector("input[type='email']").value,
+          phone: document.querySelector("input[placeholder='Phone *']").value,
+        }
+      : {
+          teacherName: document.querySelector("input[placeholder='Teacher Name *']").value,
+          organization: document.querySelector("input[placeholder='Organization *']").value,
+          username,
+          password,
+          email: document.querySelector("input[type='email']").value,
+          phone: document.querySelector("input[placeholder='Phone *']").value,
+        };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
 
     const data = await response.json();
     if (response.ok) {
       alert("Registration successful!");
+      navigate("/");
     } else {
-      alert(data.message || "Registration failed.");
+      alert(data.error || data.message || "Registration failed.");
     }
   } catch (err) {
     console.error("Error:", err);
   }
 };
+
 
 
   return (
@@ -128,9 +149,20 @@ const Signup = () => {
           {role === "student" ? (
             <>
               <div className="form-row">
-                <input type="text" placeholder="First Name *" required />
-                <input type="text" placeholder="Last Name *" required />
-                
+                <input
+                  type="text"
+                  placeholder="First Name *"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Last Name *"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
               </div>
 
               <div className="form-row">
@@ -143,7 +175,7 @@ const Signup = () => {
                 />
               </div>
               {usernameError && (
-                <p className="error-message" >{usernameError} </p>
+                <p className="error-message">{usernameError} </p>
               )}
 
               <div className="form-row">
@@ -162,30 +194,44 @@ const Signup = () => {
                   required
                 />
               </div>
-              {passwordError && <p className="error-message">{passwordError}</p>}
-              
-              <div className="form-row">
-                
-                <select required>
-                  <option value="">Please select your Security Question</option>
-                  <option value="pet">What is your pet's name?</option>
-                  <option value="school">What is your first school?</option>
-                  <option value="city">What is your birth city?</option>
-                </select>
-                <input type="text" placeholder="Answer *" required />
-              </div>
+              {passwordError && (
+                <p className="error-message">{passwordError}</p>
+              )}
 
               <div className="form-row">
-                <input type="email" placeholder="Email *" required />
-                <input type="text" placeholder="Phone *" required />
-                
+                <input
+                  type="email"
+                  placeholder="Email *"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Phone *"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
               </div>
             </>
           ) : (
             <>
               <div className="form-row">
-                <input type="text" placeholder="Teacher Name *" required />
-                <input type="text" placeholder="Organization *" required />
+                <input
+                  type="text"
+                  placeholder="Teacher Name *"
+                  value={teacherName}
+                  onChange={(e) => setTeacherName(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Organization *"
+                  value={organization}
+                  onChange={(e) => setOrganization(e.target.value)}
+                  required
+                />
               </div>
 
               <div className="form-row">
@@ -209,7 +255,7 @@ const Signup = () => {
                   onChange={handlePasswordChange}
                   required
                 />
-                
+
                 <input
                   type="password"
                   placeholder="Confirm Password *"
@@ -218,17 +264,26 @@ const Signup = () => {
                   required
                 />
               </div>
-              {passwordError && <p className="error-message">{passwordError}</p>}
-              
-
-              
+              {passwordError && (
+                <p className="error-message">{passwordError}</p>
+              )}
 
               <div className="form-row">
-                
-                <input type="email" placeholder="Email *" required />
-                <input type="text" placeholder="Phone *" required />
+                <input
+                  type="email"
+                  placeholder="Email *"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Phone *"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
               </div>
-
             </>
           )}
 
