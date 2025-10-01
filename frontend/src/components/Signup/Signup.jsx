@@ -47,15 +47,41 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (usernameError || passwordError) {
-      alert("Please fix errors before submitting.");
-      return;
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (usernameError || passwordError) {
+    alert("Please fix errors before submitting.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      role === "student"
+        ? "http://localhost:5000/api/register/student"
+        : "http://localhost:5000/api/register/teacher",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username,
+          password,
+          email: "test@gmail.com", // replace with actual state
+          phone: "1234567890", // replace with actual state
+        }),
+      }
+    );
+
+    const data = await response.json();
+    if (response.ok) {
+      alert("Registration successful!");
+    } else {
+      alert(data.message || "Registration failed.");
     }
-    alert(`${role} registration successful!`);
-    navigate("/");
-  };
+  } catch (err) {
+    console.error("Error:", err);
+  }
+};
+
 
   return (
     <div className="signup-container">
@@ -154,15 +180,6 @@ const Signup = () => {
                 <input type="text" placeholder="Phone *" required />
                 
               </div>
-
-              <div className="form-row">
-                <div className="otp">
-                  <button type="button" className="send-otp-btn">
-                    Send OTP
-                  </button>
-                  <input type="text" placeholder="OTP *" required />
-                </div>
-              </div>
             </>
           ) : (
             <>
@@ -212,14 +229,6 @@ const Signup = () => {
                 <input type="text" placeholder="Phone *" required />
               </div>
 
-              <div className="form-row">
-                <div className="otp">
-                  <button type="button" className="send-otp-btn">
-                    Send OTP
-                  </button>
-                  <input type="text" placeholder="OTP *" required />
-                </div>
-              </div>
             </>
           )}
 

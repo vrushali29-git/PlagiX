@@ -1,23 +1,39 @@
 const express = require("express");
-const dotenv = require("dotenv");
-const connectDB = require("./config/db");
+const bcrypt = require("bcryptjs");
+const Student = require("../models/Student");
+const Teacher = require("../models/Teacher");
 
-dotenv.config();
-connectDB();
+const router = express.Router();
 
-const app = express();
+// Register
+router.post("/register", async (req, res) => {
+  try {
+    const { role, username, password, ...rest } = req.body;
 
-app.use(express.json());
+    if (role === "student") {
+      const existing = await Student.findOne({ username });
+      if (existing) return res.status(400).json({ message: "Student already exists" });
 
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newStudent = new Student({ username, password: hashedPassword, ...rest });
+      await newStudent.save();
+      return res.status(201).json({ message: "Student registered successfully" });
+    }
 
-// Example route
-app.get("/", (req, res) => {
-  res.send("API is running...");
+    if (role === "teacher") {
+      const existing = await Teacher.findOne({ username });
+      if (existing) return res.status(400).json({ message: "Teacher already exists" });
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newTeacher = new Teacher({ username, password: hashedPassword, ...rest });
+      await newTeacher.save();
+      return res.status(201).json({ message: "Teacher registered successfully" });
+    }
+
+    return res.status(400).json({ message: "Invalid role" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// Import routes
-const authRoutes = require("./routes/auth");
-app.use("/api/auth", authRoutes);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(` Server running on port ${PORT}`));
+module.exports = router;
