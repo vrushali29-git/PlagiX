@@ -6,7 +6,7 @@ import Reports from '../common/Reports.jsx';
 import Settings from '../common/Setting.jsx';
 
 const Student = () => {
-  const [activeTab, setActiveTab] = useState('analysis'); // To control the view
+  const [activeTab, setActiveTab] = useState('analysis'); 
   const [projects, setProjects] = useState([
     {
       title: "Research Paper Analysis",
