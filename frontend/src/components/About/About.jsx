@@ -63,7 +63,7 @@ const About = () => {
                 <p>Developer</p>
                 <div className="team-socials">
                   <a href="https://www.linkedin.com/in/truptii/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
-                  <a href="#" aria-label="Twitter"><FaTwitter /></a>
+                  <a href="https://x.com/truptii_06" aria-label="Twitter"><FaTwitter /></a>
                   <a href="https://www.instagram.com/its.truptii06/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
                 </div>
               </div>
